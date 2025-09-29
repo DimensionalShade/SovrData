@@ -1,44 +1,37 @@
-from Core.SessionManager import SessionManager
-from Core.MessageRouter import MessageRouter
-from Modules.SMSShield.Interceptor import Interceptor
+from Modules.GUI.ThemeMidnightNeon import ThemeMidnightNeon
+from Modules.GUI.Localization import Localization
+from Storage.ConfigStore import ConfigStore
 
 class Layout:
     def __init__(self):
-        self.session = SessionManager()
-        self.router = MessageRouter()
-        self.sms = Interceptor()
+        self.config = ConfigStore()
+        self.config.load()
+        self.theme = ThemeMidnightNeon()
+        self.local = Localization(lang=self.config.config.get("language", "ru"))
 
-    def render(self):
+    def render_main_screen(self):
+        header = self.local.get("header")
+        status = self.local.get("status_ready")
+        messages_label = self.local.get("messages")
+        contacts_label = self.local.get("contacts")
+        settings_label = self.local.get("settings")
+
         return {
-            "header": "Eugram",
-            "panels": ["Messages", "Contacts", "Settings"],
-            "status": "ready"
+            "header": {
+                "text": header,
+                "status": status,
+                "style": self.theme.header_style()
+            },
+            "message_list": {
+                "items": [],
+                "style": self.theme.message_style()
+            },
+            "navigation": {
+                "buttons": [
+                    {"label": messages_label, "active": True},
+                    {"label": contacts_label, "active": False},
+                    {"label": settings_label, "active": False}
+                ],
+                "style": self.theme.nav_style()
+            }
         }
-
-    def handle_input(self, source, payload):
-        if source == "sms":
-            self.sms.intercept(payload["sender"], payload["message"])
-        elif source == "
-mkdir -p Modules/GUI && cat > Modules/GUI/Layout.py <<EOF
-from Core.SessionManager import SessionManager
-from Core.MessageRouter import MessageRouter
-from Modules.SMSShield.Interceptor import Interceptor
-
-class Layout:
-    def __init__(self):
-        self.session = SessionManager()
-        self.router = MessageRouter()
-        self.sms = Interceptor()
-
-    def render(self):
-        return {
-            "header": "Eugram",
-            "panels": ["Messages", "Contacts", "Settings"],
-            "status": "ready"
-        }
-
-    def handle_input(self, source, payload):
-        if source == "sms":
-            self.sms.intercept(payload["sender"], payload["message"])
-        elif source == "user":
-            self.router.route(payload)
