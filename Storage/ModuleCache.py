@@ -1,25 +1,26 @@
+import os
 import json
 from Core.AuditTrail import AuditTrail
 
 class ModuleCache:
-    def __init__(self, path="module_cache.json"):
+    def __init__(self, path="Storage/modules"):
         self.path = path
         self.audit = AuditTrail()
-        self.cache = {}
+        os.makedirs(self.path, exist_ok=True)
 
-    def load(self):
-        try:
-            with open(self.path, "r") as f:
-                self.cache = json.load(f)
-                self.audit.record("Storage.ModuleCache", "load", self.cache)
-        except FileNotFoundError:
-            self.save()
+    def store(self, name, code):
+        file_path = os.path.join(self.path, f"{name}.py")
+        with open(file_path, "w") as f:
+            f.write(code)
+        self.audit.record("ModuleCache", "store", {"module": name})
 
-    def save(self):
-        with open(self.path, "w") as f:
-            json.dump(self.cache, f, indent=2)
-            self.audit.record("Storage.ModuleCache", "save", self.cache)
-
-    def set_status(self, module, status, version):
-        self.cache[module] = {"status": status, "version": version}
-        self.save()
+    def load(self, name):
+        file_path = os.path.join(self.path, f"{name}.py")
+        if os.path.exists(file_path):
+            with open(file_path, "r") as f:
+                code = f.read()
+            self.audit.record("ModuleCache", "load", {"module": name})
+            return code
+        else:
+            self.audit.record("ModuleCache", "load_failed", {"module": name})
+            return None
