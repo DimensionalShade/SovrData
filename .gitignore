@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.log
+*.aab
+*.apk
+build/
+bin/
+.env
+.cache/
+
