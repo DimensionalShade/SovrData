@@ -1,26 +1,28 @@
-# Eugram
 
-**Eugram** is a modular, privacy-focused chat client dedicated to Eugene. It embodies a philosophy of user sovereignty, reproducibility, and formal consent.
+# SovrData
 
-## 🧭 Philosophy
+SovrData is a fully decentralized, privacy-focused mobile marketplace for tokenized personal data. Built on DimShade principles, it treats personal data not just as identifiers, but as creative expressions of identity.
 
-- **Transparency**: Every module is a formal artifact with explicit function and audit trail.
-- **Consent**: Private fragments require explicit user action to reveal, and every reveal is logged.
-- **Automation**: All changes are executed via scripts—manual editing is strictly prohibited.
-- **Auditability**: Every action is logged in `audit.json` and can be exported for review.
+Each token represents a soulbound artifact — a unique combination of name, image, voice, location, and philosophy — protected as both digital and intellectual property.
 
-## 🧱 Architecture
+## 🔐 Principles
 
-- `Modules/Core/SessionManager.py` — peer-to-peer connection between devices.
-- `Modules/Core/ConsentVault.py` — logs user consent for revealing private fragments.
-- `Modules/Core/AuditTrail.py` — formalized logger for all actions.
-- `Modules/Core/VersionCheck.py` — compares and updates modules based on `manifest.json`.
-- `Modules/GUI/Layout.py` — GUI screens for connection, chat, and dimmed fragments.
-- `Transport/LocalTransport.py` — local message routing.
-- `Storage/ModuleCache.py` — stores and retrieves modules locally.
-- `Storage/config.json` — privacy settings and dimshade mode.
-- `manifest.json` — authoritative source of module versions and code.
+- **Explicit Consent**: Every data transaction requires QR-confirmed, revocable consent.
+- **Auditability**: All actions are logged immutably on DimChain.
+- **Decentralization**: SovrData runs serverlessly, with reproducible open-source modules.
+- **Recognition**: Tokens affirm the dignity and autonomy of their creators.
 
-## 🚀 Launch
+## 📦 Architecture
 
-    python main.py
+- `ConsentModel.md`: Defines the legal and emotional structure of digital consent.
+- `DimLicense.md`: Embeds license terms directly into each token.
+- `Declaration_v2.md`: Formalizes SovrData’s philosophy and legal foundation.
+- `Modules/`: Contains reproducible, auditable components for data handling and access control.
+
+## 📜 License
+
+SovrData is open-source and free to use. All tokens created within the system are governed by their embedded license terms.
+
+## ✍️ Author
+
+Created and architected by **Dima**, innovator and lead developer of SovrData.
