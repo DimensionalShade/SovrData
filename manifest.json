@@ -1,47 +1,14 @@
 {
-  "project": "Eugram",
-  "version": "0.1.0",
-  "modules": {
-    "Core": {
-      "SessionManager": "1.0.0",
-      "MessageRouter": "1.0.0",
-      "ConsentVault": "1.0.0",
-      "AuditTrail": "1.0.0"
-    },
-    "SMSShield": {
-      "Interceptor": "1.0.0",
-      "Blocklist": "1.0.0",
-      "Logger": "1.0.0"
-    },
-    "NetGuard": {
-      "Firewall": "1.0.0",
-      "PolicyEngine": "1.0.0"
-    },
-    "GUI": {
-      "
-
-git add manifest.json
-git commit -m "meta: добавлен manifest.json с версионированием и юридическим слоем"
-cat > Update/VersionCheck.py <<EOF
-import json
-import os
-
-def load_manifest(path="manifest.json"):
-    if not os.path.exists(path):
-        return None
-    with open(path, "r") as f:
-        return json.load(f)
-
-def check_version():
-    manifest = load_manifest()
-    if not manifest:
-        print("Манифест не найден.")
-        return
-    print(f"Eugram версия: {manifest.get('version')}")
-    for module, components in manifest.get("modules", {}).items():
-        print(f"Модуль: {module}")
-        for name, version in components.items():
-            print(f"  {name}: {version}")
-
-if __name__ == "__main__":
-    check_version()
+  "Core": {
+    "version": "1.0.0",
+    "url": "https://example.com/Core.zip"
+  },
+  "UI": {
+    "version": "1.2.3",
+    "url": "https://example.com/UI.zip"
+  },
+  "Utils": {
+    "version": "0.9.8",
+    "url": "https://example.com/Utils.zip"
+  }
+}
